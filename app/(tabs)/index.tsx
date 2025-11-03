@@ -13,12 +13,10 @@ import { Ionicons } from '@expo/vector-icons';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { Colors, Spacing, FontSizes, FontWeights, BorderRadius, Shadows } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { mockStats, mockWeatherData } from '@/constants/mockData';
 
 export default function HomeScreen() {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
+  const colors = Colors.dark;
 
   const quickActions = [
     {

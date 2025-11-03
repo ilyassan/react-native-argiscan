@@ -14,12 +14,10 @@ import Header from '@/components/ui/Header';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { Colors, Spacing, FontSizes, FontWeights, BorderRadius } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { mockTreatments } from '@/constants/mockData';
 
 export default function TreatmentsScreen() {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
+  const colors = Colors.dark;
   const [selectedFilter, setSelectedFilter] = useState('All');
 
   const filters = ['All', 'Natural', 'Chemical', 'Cultural'];

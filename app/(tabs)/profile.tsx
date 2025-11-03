@@ -5,18 +5,15 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Switch,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { Colors, Spacing, FontSizes, FontWeights, BorderRadius } from '@/constants/theme';
-import { useTheme } from '@/contexts/ThemeContext';
 
 export default function ProfileScreen() {
-  const { colorScheme, themeMode, setThemeMode, toggleTheme } = useTheme();
-  const colors = Colors[colorScheme];
+  const colors = Colors.dark;
 
   const menuItems = [
     { icon: 'person-outline', title: 'Edit Profile', subtitle: 'Update your information' },
@@ -93,137 +90,6 @@ export default function ProfileScreen() {
               </Card>
             </TouchableOpacity>
           ))}
-        </View>
-
-        <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.text }]}>Appearance</Text>
-
-          <Card style={styles.menuItem}>
-            <View style={styles.menuItemContent}>
-              <View style={[styles.menuIcon, { backgroundColor: colors.primary + '20' }]}>
-                <Ionicons
-                  name={colorScheme === 'dark' ? 'moon' : 'sunny'}
-                  size={24}
-                  color={colors.primary}
-                />
-              </View>
-              <View style={styles.menuTextContainer}>
-                <Text style={[styles.menuTitle, { color: colors.text }]}>
-                  Dark Mode
-                </Text>
-                <Text style={[styles.menuSubtitle, { color: colors.textSecondary }]}>
-                  {colorScheme === 'dark' ? 'On' : 'Off'}
-                </Text>
-              </View>
-              <Switch
-                value={colorScheme === 'dark'}
-                onValueChange={toggleTheme}
-                trackColor={{ false: colors.border, true: colors.primary }}
-                thumbColor="#FFFFFF"
-                ios_backgroundColor={colors.border}
-              />
-            </View>
-          </Card>
-
-          <Card style={styles.menuItem}>
-            <View style={styles.menuItemContent}>
-              <View style={[styles.menuIcon, { backgroundColor: colors.primary + '20' }]}>
-                <Ionicons
-                  name="phone-portrait"
-                  size={24}
-                  color={colors.primary}
-                />
-              </View>
-              <View style={styles.menuTextContainer}>
-                <Text style={[styles.menuTitle, { color: colors.text }]}>
-                  Theme Mode
-                </Text>
-                <Text style={[styles.menuSubtitle, { color: colors.textSecondary }]}>
-                  {themeMode === 'system' ? 'Follow System' : themeMode === 'light' ? 'Always Light' : 'Always Dark'}
-                </Text>
-              </View>
-            </View>
-          </Card>
-
-          <View style={styles.themeOptions}>
-            <TouchableOpacity
-              style={[
-                styles.themeOption,
-                {
-                  backgroundColor: themeMode === 'light' ? colors.primary : colors.backgroundCard,
-                  borderColor: colors.border,
-                  borderWidth: 1,
-                },
-              ]}
-              onPress={() => setThemeMode('light')}
-            >
-              <Ionicons
-                name="sunny"
-                size={20}
-                color={themeMode === 'light' ? '#FFFFFF' : colors.text}
-              />
-              <Text
-                style={[
-                  styles.themeOptionText,
-                  { color: themeMode === 'light' ? '#FFFFFF' : colors.text },
-                ]}
-              >
-                Light
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.themeOption,
-                {
-                  backgroundColor: themeMode === 'dark' ? colors.primary : colors.backgroundCard,
-                  borderColor: colors.border,
-                  borderWidth: 1,
-                },
-              ]}
-              onPress={() => setThemeMode('dark')}
-            >
-              <Ionicons
-                name="moon"
-                size={20}
-                color={themeMode === 'dark' ? '#FFFFFF' : colors.text}
-              />
-              <Text
-                style={[
-                  styles.themeOptionText,
-                  { color: themeMode === 'dark' ? '#FFFFFF' : colors.text },
-                ]}
-              >
-                Dark
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[
-                styles.themeOption,
-                {
-                  backgroundColor: themeMode === 'system' ? colors.primary : colors.backgroundCard,
-                  borderColor: colors.border,
-                  borderWidth: 1,
-                },
-              ]}
-              onPress={() => setThemeMode('system')}
-            >
-              <Ionicons
-                name="phone-portrait"
-                size={20}
-                color={themeMode === 'system' ? '#FFFFFF' : colors.text}
-              />
-              <Text
-                style={[
-                  styles.themeOptionText,
-                  { color: themeMode === 'system' ? '#FFFFFF' : colors.text },
-                ]}
-              >
-                System
-              </Text>
-            </TouchableOpacity>
-          </View>
         </View>
 
         <Button
@@ -361,24 +227,5 @@ const styles = StyleSheet.create({
   versionText: {
     fontSize: FontSizes.sm,
     textAlign: 'center',
-  },
-  themeOptions: {
-    flexDirection: 'row',
-    gap: Spacing.sm,
-    marginTop: Spacing.md,
-    paddingHorizontal: Spacing.xs,
-  },
-  themeOption: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: Spacing.xs,
-    paddingVertical: Spacing.md,
-    borderRadius: BorderRadius.md,
-  },
-  themeOptionText: {
-    fontSize: FontSizes.sm,
-    fontWeight: FontWeights.semibold,
   },
 });

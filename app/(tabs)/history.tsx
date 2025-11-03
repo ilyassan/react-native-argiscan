@@ -12,12 +12,10 @@ import { Ionicons } from '@expo/vector-icons';
 import Card from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import { Colors, Spacing, FontSizes, FontWeights, BorderRadius } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { mockStats, mockDiagnosisHistory } from '@/constants/mockData';
 
 export default function HistoryScreen() {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
+  const colors = Colors.dark;
   const [selectedCrop, setSelectedCrop] = useState('All');
 
   const cropTypes = ['All', 'Tomato', 'Corn', 'Potato'];

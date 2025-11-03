@@ -17,11 +17,9 @@ import Header from '@/components/ui/Header';
 import Button from '@/components/ui/Button';
 import ScanningAnimation from '@/components/ui/ScanningAnimation';
 import { Colors, Spacing, FontSizes, FontWeights, BorderRadius } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function DiagnoseScreen() {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
+  const colors = Colors.dark;
   const [facing, setFacing] = useState<CameraType>('back');
   const [flash, setFlash] = useState<FlashMode>('off');
   const [permission, requestPermission] = useCameraPermissions();

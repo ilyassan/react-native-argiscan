@@ -13,12 +13,10 @@ import Header from '@/components/ui/Header';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { Colors, Spacing, FontSizes, FontWeights, BorderRadius } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { mockWeatherData, mockAlerts } from '@/constants/mockData';
 
 export default function WeatherScreen() {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
+  const colors = Colors.dark;
 
   const getWeatherIcon = (icon: string) => {
     const iconMap: Record<string, any> = {
@@ -43,15 +41,15 @@ export default function WeatherScreen() {
   const getAlertStyles = (type: string) => {
     if (type === 'warning') {
       return {
-        backgroundColor: colorScheme === 'light' ? 'rgba(255, 152, 0, 0.15)' : 'rgba(255, 183, 77, 0.15)',
+        backgroundColor: 'rgba(255, 183, 77, 0.15)',
         iconColor: colors.warning,
-        textColor: colorScheme === 'light' ? '#E65100' : '#FFB74D',
+        textColor: '#FFB74D',
       };
     }
     return {
-      backgroundColor: colorScheme === 'light' ? 'rgba(244, 67, 54, 0.15)' : 'rgba(239, 83, 80, 0.15)',
+      backgroundColor: 'rgba(239, 83, 80, 0.15)',
       iconColor: colors.diseased,
-      textColor: colorScheme === 'light' ? '#C62828' : '#EF5350',
+      textColor: '#EF5350',
     };
   };
 

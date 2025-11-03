@@ -13,13 +13,11 @@ import { Ionicons } from '@expo/vector-icons';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { Colors, Spacing, FontSizes, FontWeights, BorderRadius } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/useColorScheme';
 
 const { width } = Dimensions.get('window');
 
 export default function WelcomeScreen() {
-  const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? 'light'];
+  const colors = Colors.dark;
   const [currentPage, setCurrentPage] = useState(0);
 
   const features = [
