@@ -1,98 +1,305 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { router } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import { Colors, Spacing, FontSizes, FontWeights, BorderRadius, Shadows } from '@/constants/theme';
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { mockStats, mockWeatherData } from '@/constants/mockData';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme ?? 'light'];
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const quickActions = [
+    {
+      icon: 'camera' as const,
+      title: 'Diagnose Plant',
+      subtitle: 'Take a photo',
+      color: colors.primary,
+      route: '/diagnose' as const,
+    },
+    {
+      icon: 'leaf' as const,
+      title: 'My Crops',
+      subtitle: 'Track health',
+      color: colors.success,
+      route: '/history' as const,
+    },
+    {
+      icon: 'partly-sunny' as const,
+      title: 'Weather',
+      subtitle: 'View forecast',
+      color: colors.warning,
+      route: '/weather' as const,
+    },
+    {
+      icon: 'flask' as const,
+      title: 'Treatments',
+      subtitle: 'Browse options',
+      color: colors.accent,
+      route: '/treatments' as const,
+    },
+  ];
+
+  return (
+    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.header}>
+          <View>
+            <Text style={[styles.greeting, { color: colors.textSecondary }]}>
+              Good Morning
+            </Text>
+            <Text style={[styles.userName, { color: colors.text }]}>Farmer John</Text>
+          </View>
+          <TouchableOpacity style={styles.notificationButton}>
+            <Ionicons name="notifications-outline" size={24} color={colors.text} />
+          </TouchableOpacity>
+        </View>
+
+        <Card style={styles.weatherCard} variant="elevated">
+          <View style={styles.weatherContent}>
+            <View style={styles.weatherLeft}>
+              <Text style={[styles.weatherTemp, { color: colors.text }]}>
+                {mockWeatherData.current.temperature}°C
+              </Text>
+              <Text style={[styles.weatherCondition, { color: colors.textSecondary }]}>
+                {mockWeatherData.current.condition}
+              </Text>
+              <Text style={[styles.weatherDetails, { color: colors.textLight }]}>
+                Humidity: {mockWeatherData.current.humidity}% | Wind: {mockWeatherData.current.wind} km/h
+              </Text>
+            </View>
+            <View style={styles.weatherIcon}>
+              <Ionicons name="sunny" size={60} color="#FDB813" />
+            </View>
+          </View>
+        </Card>
+
+        <View style={styles.statsContainer}>
+          <Card style={styles.statCard}>
+            <Text style={[styles.statValue, { color: colors.text }]}>
+              {mockStats.totalDiagnoses}
+            </Text>
+            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
+              Total Diagnoses
+            </Text>
+          </Card>
+          <Card style={styles.statCard}>
+            <Text style={[styles.statValue, { color: colors.healthy }]}>
+              {mockStats.healthyPlants}
+            </Text>
+            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
+              Healthy Plants
+            </Text>
+          </Card>
+          <Card style={styles.statCard}>
+            <Text style={[styles.statValue, { color: colors.diseased }]}>
+              {mockStats.diseasedPlants}
+            </Text>
+            <Text style={[styles.statLabel, { color: colors.textSecondary }]}>
+              Diseased Plants
+            </Text>
+          </Card>
+        </View>
+
+        <Text style={[styles.sectionTitle, { color: colors.text }]}>Quick Actions</Text>
+
+        <View style={styles.quickActionsGrid}>
+          {quickActions.map((action, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.actionCard}
+              onPress={() => router.push(action.route as any)}
+            >
+              <Card style={styles.actionCardInner}>
+                <View style={[styles.actionIcon, { backgroundColor: action.color + '20' }]}>
+                  <Ionicons name={action.icon} size={28} color={action.color} />
+                </View>
+                <Text style={[styles.actionTitle, { color: colors.text }]}>
+                  {action.title}
+                </Text>
+                <Text style={[styles.actionSubtitle, { color: colors.textSecondary }]}>
+                  {action.subtitle}
+                </Text>
+              </Card>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        <Card style={styles.promoCard}>
+          <ImageBackground
+            source={{ uri: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400' }}
+            style={styles.promoBackground}
+            imageStyle={styles.promoImage}
+          >
+            <View style={styles.promoOverlay}>
+              <Text style={styles.promoTitle}>Expert Support Available</Text>
+              <Text style={styles.promoText}>
+                Connect with agricultural experts for personalized advice
+              </Text>
+              <Button
+                title="Learn More"
+                variant="secondary"
+                size="small"
+                onPress={() => {}}
+                style={styles.promoButton}
+              />
+            </View>
+          </ImageBackground>
+        </Card>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  container: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: Spacing.md,
+    paddingBottom: Spacing.xxl,
+  },
+  header: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 8,
+    marginBottom: Spacing.lg,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  greeting: {
+    fontSize: FontSizes.sm,
+    marginBottom: Spacing.xs / 2,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  userName: {
+    fontSize: FontSizes.xxl,
+    fontWeight: FontWeights.bold,
+  },
+  notificationButton: {
+    width: 40,
+    height: 40,
+    borderRadius: BorderRadius.full,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  weatherCard: {
+    marginBottom: Spacing.lg,
+  },
+  weatherContent: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  weatherLeft: {
+    flex: 1,
+  },
+  weatherTemp: {
+    fontSize: FontSizes.huge,
+    fontWeight: FontWeights.bold,
+    marginBottom: Spacing.xs,
+  },
+  weatherCondition: {
+    fontSize: FontSizes.lg,
+    marginBottom: Spacing.xs / 2,
+  },
+  weatherDetails: {
+    fontSize: FontSizes.sm,
+  },
+  weatherIcon: {
+    marginLeft: Spacing.md,
+  },
+  statsContainer: {
+    flexDirection: 'row',
+    gap: Spacing.md,
+    marginBottom: Spacing.lg,
+  },
+  statCard: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  statValue: {
+    fontSize: FontSizes.xxl,
+    fontWeight: FontWeights.bold,
+    marginBottom: Spacing.xs,
+  },
+  statLabel: {
+    fontSize: FontSizes.xs,
+    textAlign: 'center',
+  },
+  sectionTitle: {
+    fontSize: FontSizes.xl,
+    fontWeight: FontWeights.bold,
+    marginBottom: Spacing.md,
+  },
+  quickActionsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Spacing.md,
+    marginBottom: Spacing.lg,
+  },
+  actionCard: {
+    width: '47%',
+  },
+  actionCardInner: {
+    alignItems: 'center',
+    padding: Spacing.lg,
+  },
+  actionIcon: {
+    width: 60,
+    height: 60,
+    borderRadius: BorderRadius.full,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: Spacing.md,
+  },
+  actionTitle: {
+    fontSize: FontSizes.base,
+    fontWeight: FontWeights.semibold,
+    marginBottom: Spacing.xs / 2,
+    textAlign: 'center',
+  },
+  actionSubtitle: {
+    fontSize: FontSizes.xs,
+    textAlign: 'center',
+  },
+  promoCard: {
+    overflow: 'hidden',
+    marginTop: Spacing.md,
+  },
+  promoBackground: {
+    width: '100%',
+    height: 180,
+  },
+  promoImage: {
+    borderRadius: BorderRadius.lg,
+  },
+  promoOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    padding: Spacing.lg,
+    justifyContent: 'center',
+  },
+  promoTitle: {
+    fontSize: FontSizes.xl,
+    fontWeight: FontWeights.bold,
+    color: '#FFFFFF',
+    marginBottom: Spacing.sm,
+  },
+  promoText: {
+    fontSize: FontSizes.sm,
+    color: '#FFFFFF',
+    marginBottom: Spacing.md,
+  },
+  promoButton: {
+    alignSelf: 'flex-start',
   },
 });
