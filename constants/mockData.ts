@@ -138,7 +138,7 @@ export const mockDiagnosisHistory: DiagnosisHistory[] = [
     date: 'Oct 26, 2023',
     status: 'Treated',
     beforeImage: 'https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=400',
-    afterImage: 'https://images.unsplash.com/photo-1606588285270-8e82d78465c6?w=400',
+    afterImage: 'https://i.ibb.co/N2z7jRk9/773df8ad-fd41-4c21-a694-cc9fb5b9751a.png',
   },
   {
     id: '2',
