@@ -1,50 +1,50 @@
-# Welcome to your Expo app 👋
+# 🌱 ArgiScan
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+An intelligent plant disease diagnosis mobile application that helps farmers and plant enthusiasts identify crop diseases and get treatment recommendations through AI-powered analysis.
 
-## Get started
+![React Native](https://img.shields.io/badge/React%20Native-0.81.5-61DAFB?style=flat-square&logo=react)
+![Expo](https://img.shields.io/badge/Expo-54.0.20-000020?style=flat-square&logo=expo)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-3178C6?style=flat-square&logo=typescript)
 
-1. Install dependencies
+## Overview
 
-   ```bash
-   npm install
-   ```
+**ArgiScan** is a mobile app designed to empower farmers and plant lovers with quick and easy plant disease diagnosis. Simply take a photo of a diseased leaf, and the app analyzes it to identify the disease and recommend treatment options.
 
-2. Start the app
+## Main Features
 
-   ```bash
-   npx expo start
-   ```
+- 📸 **Real-time Disease Diagnosis** - Capture plant leaf photos or upload from gallery for instant analysis
+- 💊 **Treatment Recommendations** - Get tailored treatment options based on the detected disease
+- 📋 **Diagnosis History** - Track all past diagnoses and treatment progress
+- 🏠 **Dashboard** - View key statistics and quick access to all features
+- 🌦️ **Weather Monitoring** - Check weather conditions and agricultural alerts
+- 👤 **User Profile** - Manage personal information and preferences
+- 🎨 **Dark/Light Mode** - Switch between themes for comfortable viewing
 
-In the output, you'll find options to open the app in a
+## Technologies Used
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **React Native** - Cross-platform mobile development
+- **Expo** - Managed development platform
+- **TypeScript** - Type-safe code
+- **React Navigation** - App navigation
+- **Expo Camera** - Camera functionality
+- **Expo Image Picker** - Image selection
+- **AsyncStorage** - Local data storage
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Getting Started
 
-## Get a fresh project
-
-When you're ready, run:
+### Installation
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Run the App
 
-## Learn more
+```bash
+npm start
+```
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Then select your platform:
+- **Android**: Press `a`
+- **iOS**: Press `i`
+- **Web**: Press `w`
